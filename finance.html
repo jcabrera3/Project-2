@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Finance Dashboard</h1>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gross Revenue breakdown</h5>
+                        <canvas id="revenueBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Monthly Cash Flow</h5>
+                        <canvas id="cashFlowLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Operating Expenses by Category</h5>
+                        <canvas id="expensePieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Revenue Streams Allocation</h5>
+                        <canvas id="streamDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Department Budget Allocation</h5>
+                        <canvas id="budgetPolarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        var ctx1 = document.getElementById('revenueBarChart').getContext('2d');
+        var revenueBarChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('cashFlowLineChart').getContext('2d');
+        var cashFlowLineChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx3 = document.getElementById('expensePieChart').getContext('2d');
+        var expensePieChart = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx4 = document.getElementById('streamDoughnutChart').getContext('2d');
+        var streamDoughnutChart = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx5 = document.getElementById('budgetPolarChart').getContext('2d');
+        var budgetPolarChart = new Chart(ctx5, {
+            type: 'polarArea',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function fetchDataAndUpdateChart() {
+            Papa.parse('finance.csv', {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    var labels1 = results.data.map(row => row.Month);
+                    var data1 = results.data.map(row => row.Revenue);
+                    revenueBarChart.data.labels = labels1;
+                    revenueBarChart.data.datasets[0].data = data1;
+                    revenueBarChart.update();
+
+                    var labels2 = results.data.map(row => row.Month);
+                    var data2 = results.data.map(row => row.CashFlow);
+                    cashFlowLineChart.data.labels = labels2;
+                    cashFlowLineChart.data.datasets[0].data = data2;
+                    cashFlowLineChart.update();
+
+                    var labels3 = results.data.map(row => row.ExpenseCategory);
+                    var data3 = results.data.map(row => row.ExpenseAmount);
+                    expensePieChart.data.labels = labels3;
+                    expensePieChart.data.datasets[0].data = data3;
+                    expensePieChart.update();
+
+                    var labels4 = results.data.map(row => row.StreamName);
+                    var data4 = results.data.map(row => row.StreamRevenue);
+                    streamDoughnutChart.data.labels = labels4;
+                    streamDoughnutChart.data.datasets[0].data = data4;
+                    streamDoughnutChart.update();
+
+                    var labels5 = results.data.map(row => row.Department);
+                    var data5 = results.data.map(row => row.BudgetAllocated);
+                    budgetPolarChart.data.labels = labels5;
+                    budgetPolarChart.data.datasets[0].data = data5;
+                    budgetPolarChart.update();
+                },
+                error: function (error) {
+                    console.error('Error fetching or parsing data:', error);
+                }
+            });
+        }
+
+        fetchDataAndUpdateChart();
+    </script>
+</body>
+
+</html>

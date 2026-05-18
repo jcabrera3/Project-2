@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Sales Dashboard</h1>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Online Orders Volume</h5>
+                        <canvas id="salesBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Monthly Growth Rate (%)</h5>
+                        <canvas id="growthLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Units Sold by Global Region</h5>
+                        <canvas id="regionPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Revenue by Sneaker Model</h5>
+                        <canvas id="modelDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Market Segment Share</h5>
+                        <canvas id="segmentPolarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        var ctx1 = document.getElementById('salesBarChart').getContext('2d');
+        var salesBarChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('growthLineChart').getContext('2d');
+        var growthLineChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx3 = document.getElementById('regionPieChart').getContext('2d');
+        var regionPieChart = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx4 = document.getElementById('modelDoughnutChart').getContext('2d');
+        var modelDoughnutChart = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx5 = document.getElementById('segmentPolarChart').getContext('2d');
+        var segmentPolarChart = new Chart(ctx5, {
+            type: 'polarArea',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function fetchDataAndUpdateChart() {
+            Papa.parse('sales.csv', {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    var labels1 = results.data.map(row => row.Month);
+                    var data1 = results.data.map(row => row.OnlineSales);
+                    salesBarChart.data.labels = labels1;
+                    salesBarChart.data.datasets[0].data = data1;
+                    salesBarChart.update();
+
+                    var labels2 = results.data.map(row => row.Month);
+                    var data2 = results.data.map(row => row.GrowthRate);
+                    growthLineChart.data.labels = labels2;
+                    growthLineChart.data.datasets[0].data = data2;
+                    growthLineChart.update();
+
+                    var labels3 = results.data.map(row => row.Region);
+                    var data3 = results.data.map(row => row.RegionalUnits);
+                    regionPieChart.data.labels = labels3;
+                    regionPieChart.data.datasets[0].data = data3;
+                    regionPieChart.update();
+
+                    var labels4 = results.data.map(row => row.ModelName);
+                    var data4 = results.data.map(row => row.ModelRevenue);
+                    modelDoughnutChart.data.labels = labels4;
+                    modelDoughnutChart.data.datasets[0].data = data4;
+                    modelDoughnutChart.update();
+
+                    var labels5 = results.data.map(row => row.Segment);
+                    var data5 = results.data.map(row => row.SegmentShare);
+                    segmentPolarChart.data.labels = labels5;
+                    segmentPolarChart.data.datasets[0].data = data5;
+                    segmentPolarChart.update();
+                },
+                error: function (error) {
+                    console.error('Error fetching or parsing data:', error);
+                }
+            });
+        }
+
+        fetchDataAndUpdateChart();
+    </script>
+</body>
+
+</html>

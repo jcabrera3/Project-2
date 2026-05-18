@@ -1,0 +1,7 @@
+Month,TargetOutput,ActualOutput,DefectRate,MachineStatus,RunningHours,ShiftName,PairsProduced,FactoryFloor,EnergyConsumption
+Jan,10000,9800,2.4,Active Stitching,420,Morning Shift A,25000,Cutting Area,85
+Feb,10000,10200,2.1,Sole Vulcanization,380,Morning Shift B,23000,Stitching Room,90
+Mar,12000,11500,1.8,Die-Cutting Press,400,Afternoon Shift A,22000,Assembly Line,75
+Apr,12000,12100,2.9,Eyelet Punching,350,Afternoon Shift B,21000,Finishing / QC,60
+May,15000,14200,1.5,Scheduled Service,45,Night Shift Premium,14000,Packaging Facility,40
+Jun,15000,15600,1.1,Idle / Changeover,25,Weekend Overtime,8000,Warehouse Loading,50

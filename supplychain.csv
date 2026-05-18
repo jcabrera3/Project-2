@@ -1,0 +1,7 @@
+MaterialType,StockLevel,Month,SupplierDelayDays,ShippingMethod,ShipmentVolume,WarehouseRegion,CapacityUtilization,SupplierName,ComplianceScore
+Recycled Rubber,45000,Jan,3.5,Ocean Freight,55,West Coast Hub,88,EcoRubber Corp,92
+Organic Canvas,38000,Feb,4.2,Intermodal Rail,25,Midwest Depot,72,GreenCanvas Mills,85
+Eco-Poly Yarn,29000,Mar,2.1,Over-the-Road Truck,35,East Coast Terminal,91,BioThread Labs,78
+Water-based Glues,12000,Apr,5.8,Regional Courier,12,Southern Fulfilment,65,SustainaGlue Inc,95
+Recycled Box-Board,55000,May,1.5,Air Freight Express,3,Euro Distribution,45,VerdeBoxes,88
+Brass Eyelets,80000,Jun,2.0,Factory Direct Pick-up,5,Asia Transit Port,50,PureMetals Ltd,90

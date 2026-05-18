@@ -1,0 +1,7 @@
+Stage,PipelineCount,Month,TicketsResolved,SatisfactionRating,RatingCount,Channel,AcquisitionCount,LoyaltyTier,TierRevenue
+New Leads,2500,Jan,320,Excellent (5-Star),650,Instagram Shop,1200,Bronze Members,95000
+Marketing Qualified,1800,Feb,290,Good (4-Star),420,Email Newsletter,850,Silver Club,140000
+Sales Hand-off,1200,Mar,410,Average (3-Star),180,Google Search,600,Gold Elite,220000
+Fitting Trial Sent,850,Apr,380,Below Avg (2-Star),45,TikTok Influencers,1400,Platinum VIP,310000
+Negotiation,400,May,450,Poor (1-Star),25,Store Walk-ins,450,Corporate Affiliates,65000
+Closed Won,250,Jun,510,N/A,10,Referral Code,300,Guest Checkouts,80000

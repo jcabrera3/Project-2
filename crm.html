@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">CRM Dashboard</h1>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Wholesale Deal Pipeline</h5>
+                        <canvas id="pipelineBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Customer Service Tickets Closed</h5>
+                        <canvas id="ticketsLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Customer Satisfaction Ratings</h5>
+                        <canvas id="satisfactionPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Acquisition Channels</h5>
+                        <canvas id="channelDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Revenue by Loyalty Tier</h5>
+                        <canvas id="tierPolarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        var ctx1 = document.getElementById('pipelineBarChart').getContext('2d');
+        var pipelineBarChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('ticketsLineChart').getContext('2d');
+        var ticketsLineChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx3 = document.getElementById('satisfactionPieChart').getContext('2d');
+        var satisfactionPieChart = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx4 = document.getElementById('channelDoughnutChart').getContext('2d');
+        var channelDoughnutChart = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx5 = document.getElementById('tierPolarChart').getContext('2d');
+        var tierPolarChart = new Chart(ctx5, {
+            type: 'polarArea',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Sales',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function fetchDataAndUpdateChart() {
+            Papa.parse('crm.csv', {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    var labels1 = results.data.map(row => row.Stage);
+                    var data1 = results.data.map(row => row.PipelineCount);
+                    pipelineBarChart.data.labels = labels1;
+                    pipelineBarChart.data.datasets[0].data = data1;
+                    pipelineBarChart.update();
+
+                    var labels2 = results.data.map(row => row.Month);
+                    var data2 = results.data.map(row => row.TicketsResolved);
+                    ticketsLineChart.data.labels = labels2;
+                    ticketsLineChart.data.datasets[0].data = data2;
+                    ticketsLineChart.update();
+
+                    var labels3 = results.data.map(row => row.SatisfactionRating);
+                    var data3 = results.data.map(row => row.RatingCount);
+                    satisfactionPieChart.data.labels = labels3;
+                    satisfactionPieChart.data.datasets[0].data = data3;
+                    satisfactionPieChart.update();
+
+                    var labels4 = results.data.map(row => row.Channel);
+                    var data4 = results.data.map(row => row.AcquisitionCount);
+                    channelDoughnutChart.data.labels = labels4;
+                    channelDoughnutChart.data.datasets[0].data = data4;
+                    channelDoughnutChart.update();
+
+                    var labels5 = results.data.map(row => row.LoyaltyTier);
+                    var data5 = results.data.map(row => row.TierRevenue);
+                    tierPolarChart.data.labels = labels5;
+                    tierPolarChart.data.datasets[0].data = data5;
+                    tierPolarChart.update();
+                },
+                error: function (error) {
+                    console.error('Error fetching or parsing data:', error);
+                }
+            });
+        }
+
+        fetchDataAndUpdateChart();
+    </script>
+</body>
+
+</html>

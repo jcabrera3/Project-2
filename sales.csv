@@ -1,0 +1,7 @@
+Month,OnlineSales,RetailSales,GrowthRate,Region,RegionalUnits,ModelName,ModelRevenue,Segment,SegmentShare
+Jan,4500,3100,4.2,North America,15000,Cushion Runner,240000,Adults Premium,40
+Feb,5200,2900,5.1,Europe,12000,Trail Hiker,180000,Adults Budget,25
+Mar,6100,4000,3.8,Asia Pacific,9500,Classic Canvas,150000,Kids Athletic,15
+Apr,5800,3800,-1.2,Latin America,6000,Eco Sandal,90000,Toddler First-Steps,8
+May,7100,4900,6.5,Middle East,4000,Leather Boot,130000,Orthopedic Specialty,7
+Jun,8500,6200,8.2,Africa,2500,Court Sneaker,110000,Limited Edition Collectibles,5

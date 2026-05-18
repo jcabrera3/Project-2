@@ -1,0 +1,28 @@
+ChartID,Series,Label,Value
+1,Revenue,Q1,450000
+1,Revenue,Q2,520000
+1,Revenue,Q3,610000
+1,Revenue,Q4,780000
+1,COGS,Q1,210000
+1,COGS,Q2,240000
+1,COGS,Q3,275000
+1,COGS,Q4,340000
+2,Net Profit,January,35000
+2,Net Profit,February,42000
+2,Net Profit,March,58000
+2,Net Profit,April,49000
+2,Net Profit,May,68000
+2,Net Profit,June,85000
+3,Expenses,Raw Materials (Eco-Rubber/Canvas),120000
+3,Expenses,Factory Manufacturing Labor,85000
+3,Expenses,Marketing & Influencer Campaigns,65000
+3,Expenses,Fulfillment & Freight Shipping,40000
+3,Expenses,Administrative & Design R&D,30000
+4,Product Line,Recycled Lifestyle Sneakers,320000
+4,Product Line,Performance Running Shoes,240000
+4,Product Line,Upcycled Leather Boots,180000
+4,Product Line,Bio-degradable Sandals,90000
+5,Budget Allocation,Eco-Material Innovation R&D,85
+5,Budget Allocation,Factory Automation Upgrades,70
+5,Budget Allocation,Global Retail Expansion,60
+5,Budget Allocation,Supply Chain Sustainability Audits,45
